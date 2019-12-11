@@ -1,6 +1,9 @@
 const fs = require('fs');
+let THREE = require('three');
+var OrbitControls = require('three-orbit-controls')(THREE)
 
-const editor = document.querySelector('#editor');
+
+/*const editor = document.querySelector('#editor');
 const loadInput = document.querySelector('#load-input');
 const saveButton = document.querySelector('#save-button');
 
@@ -15,16 +18,18 @@ saveButton.addEventListener('click', () => {
     fs.writeFile(loadInput.files[0].path, editor.value, (err, data) => {
         if (err) { throw err; }
       });
-}, true);
+}, true);*/
 
-$(document).ready(function(e){
-  $('#editor').keyup(function(){
-    var nombreCaractere = $(this).val().length;
-    var nombreMots = jQuery.trim($(this).val()).split(' ').length;
-      if($(this).val() === ''){
-        nombreMots = 0;
-      }
-    var msg = ' ' + nombreMots + ' Mot(s) | ' + nombreCaractere + ' Caractère(s)';
-    $('#compteur').text(msg);
-  })
-});
+//$(document).ready(function(e){
+/*$('#editor').keyup(function(){
+  var nombreCaractere = $(this).val().length;
+  var nombreMots = jQuery.trim($(this).val()).split(' ').length;
+    if($(this).val() === ''){
+      nombreMots = 0;
+    }
+  var msg = ' ' + nombreMots + ' Mot(s) | ' + nombreCaractere + ' Caractère(s)';
+  $('#compteur').text(msg);
+})*/
+console.log('rendereJS');
+
+//});

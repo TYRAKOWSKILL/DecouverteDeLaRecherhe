@@ -1,19 +1,112 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <title>My Text Editor</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
-    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
-    <script src="js/jquery-1.4.3.min.js"></script>
-  </head>
-  <body>
-      <div class="columns is-mobile">
-          <div class="column is-half is-offset-one-quarter"><h1 class ="title">Calcul tes grands ancêtres</h1></div>
-          Combien mesure le contenant ? 
-          <input id = "nbContenant"
-        </div>
-    
-  </body>
+
+<head>
+  <meta charset="UTF-8">
+  <title>My Text Editor</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
+  <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+
+
+</head>
+
+<body>
+  <!--
+    div class="columns is-mobile">
+    <div class="column is-half is-offset-one-quarter">
+      <h1 class="title">Calcul tes grands ancêtres</h1>
+    </div>
+    Combien mesure le contenant ?
+    <input id="nbContenant">
+  </div>
+-->
+  <script src="renderer.js"></script>
+  <script>
+
+
+    //var OrbitControls= require('');
+    // var THREE=require('three');
+    //let OrbitControls= require('three').OrbitControls;
+
+    //console.log(OrbitControls);
+
+    var x = 0;
+    var z = 0
+    function moveRight() {
+      x++;
+      camera.position.set(x, 0, z);
+
+    }
+    function moveLeft() {
+      x--;
+      camera.position.set(x, 0, z);
+
+    }
+    function moveBack() {
+      z--;
+      camera.position.set(x, 0, z);
+    }
+
+    function moveFront() {
+      z++;
+      camera.position.set(x, 0, z);
+    }
+
+    function animate() {
+      requestAnimationFrame(animate);
+      //cube.rotation.x += 0.01;
+      //cube.rotation.y += 0.01;
+      renderer.render(scene, camera);
+    }
+
+    var scene = new THREE.Scene();
+    var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+
+
+    var renderer = new THREE.WebGLRenderer();
+    var controls = new  OrbitControls(camera, renderer.domElement);
+    controls.enabled=true;
+    controls.enableKeys=true;
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    document.body.appendChild(renderer.domElement);
+
+    var geometry = new THREE.BoxGeometry(1, 1, 1,1,1,1);
+    var material = new THREE.MeshBasicMaterial({ color: 0x4287f5,transparent:true, opacity:0.8 });
+    var cube = new THREE.Mesh(geometry, material);
+    var cube2=new THREE.Mesh(geometry,new THREE.MeshBasicMaterial({color: 0xcd62d1,transparent:true, opacity:0.8}));
+    var cube3=new THREE.Mesh(geometry,new THREE.MeshBasicMaterial({color: 0xd16276,transparent:true, opacity:0.8}))
+    scene.add(cube);
+    scene.add(cube2);
+    scene.add(cube3);
+    cube2.position.setX(1);
+    cube3.position.setY(1);
+
+    camera.position.z = 5;
+    animate();
+
+    /*document.addEventListener("keydown", (e) => {
+      switch (e.code) {
+        case "ArrowRight":
+          //console.log('at the right');
+          moveRight();
+          break;
+        case "ArrowLeft":
+          //console.log('at the left');
+          moveLeft();
+          break;
+
+        case "ArrowUp":
+          moveFront();
+          break;
+
+        case "ArrowDown":
+          moveBack();
+          break;
+
+      }
+    })*/
+  </script>
+</body>
+
 </html>
