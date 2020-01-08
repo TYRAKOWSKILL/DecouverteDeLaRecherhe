@@ -73,15 +73,30 @@
 
     var geometry = new THREE.BoxGeometry(1, 1, 1,1,1,1);
     var material = new THREE.MeshBasicMaterial({ color: 0x4287f5,transparent:true, opacity:0.8 });
-    var cube = new THREE.Mesh(geometry, material);
-    var cube2=new THREE.Mesh(geometry,new THREE.MeshBasicMaterial({color: 0xcd62d1,transparent:true, opacity:0.8}));
-    var cube3=new THREE.Mesh(geometry,new THREE.MeshBasicMaterial({color: 0xd16276,transparent:true, opacity:0.8}))
-    scene.add(cube);
-    scene.add(cube2);
-    scene.add(cube3);
-    cube2.position.setX(1);
-    cube3.position.setY(1);
+    //var cube = new THREE.Mesh(new THREE.BoxGeometry(10, 10, 10,1,1,1), new THREE.MeshBasicMaterial({color: 0xcd62d1,transparent:true, opacity:0.1, wireframe: true}));
+    var superCube=new superCube();
+    var box= new Boite();
+    var box2= new Boite();
+    
+    superCube.AddBox(box);
+    superCube.AddBox(box2,{x:1,y:0,z:0});
+    superCube.AddAllToScene(scene);
 
+    //new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1,1,1,1),new THREE.MeshBasicMaterial({color: 0xcd62d1,transparent:true, opacity:0.8}));
+    //cube2.position.set(0,0,0);
+    //var cube3=new THREE.Mesh(geometry,new THREE.MeshBasicMaterial({color: 0xd16276,transparent:true, opacity:0.8}))
+    //cube.material.opacity=0.1;
+    //scene.add(superCube);
+    //scene.add(box);
+    //scene.add(cube3);
+    //cube2.scale.x=3;
+    //cube2.position.setX(cube2.geometry.parameters.width/2+0.5);
+    //cube2.position.set(0,0,0);
+    //cube3.position.setY(1);
+    //console.log(JSON.parse(JSON.stringify(cube2)));
+    //console.log(cube2.geometry.parameters.width);
+    //console.log(JSON.parse(JSON.stringify(superCube.list[0])));
+    //scene.add(cube2);
     camera.position.z = 5;
     animate();
 

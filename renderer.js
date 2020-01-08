@@ -1,5 +1,6 @@
 const fs = require('fs');
 let THREE = require('three');
+var {superCube,Boite}= require('./Objets');
 var OrbitControls = require('three-orbit-controls')(THREE)
 
 
