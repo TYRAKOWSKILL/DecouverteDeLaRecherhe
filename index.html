@@ -12,6 +12,22 @@
 </head>
 
 <body>
+  <nav>
+    <input type="button" onclick="AjoutCube()">
+    <form>
+      <label>X</label>
+      <input id="X" type="text">
+      <label>Y</label>
+      <input id="Y" type="text">
+      <label>Z</label>
+      <input id="Z" type="text">
+      <label>Nombre</label>
+      <input id="nombre" type="text">
+      <input type="button" value="Créer l'ensemble" onclick="BoutonCréer()" >
+      <input type="button" value="Ranger" onclick="OnEnvoiLeGrosTasDeMerde()" >
+
+    </form>
+  </nav>
   <!--
     div class="columns is-mobile">
     <div class="column is-half is-offset-one-quarter">
@@ -76,10 +92,12 @@
     //var cube = new THREE.Mesh(new THREE.BoxGeometry(10, 10, 10,1,1,1), new THREE.MeshBasicMaterial({color: 0xcd62d1,transparent:true, opacity:0.1, wireframe: true}));
     var superCube=new superCube();
     var box= new Boite();
-    var box2= new Boite();
+    var box2= new Boite(5,1,1);
+    var box3= new Boite(4,1,1)
     
-    superCube.AddBox(box);
-    superCube.AddBox(box2,{x:1,y:0,z:0});
+    //superCube.AddBox(box);
+    //superCube.AddBox(box2,{x:0,y:0,z:0});
+    //superCube.AddBox(box3,{x:3,y:0,z:0});
     superCube.AddAllToScene(scene);
 
     //new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1,1,1,1),new THREE.MeshBasicMaterial({color: 0xcd62d1,transparent:true, opacity:0.8}));
@@ -97,8 +115,71 @@
     //console.log(cube2.geometry.parameters.width);
     //console.log(JSON.parse(JSON.stringify(superCube.list[0])));
     //scene.add(cube2);
-    camera.position.z = 5;
+    /*camera.rotateY(90*Math.PI/180);
+    camera.rotateZ(90*Math.PI/180);*/
+    camera.position.z = 50;
+    controls.update;
+    var mesBoitesDeMerde=[];
+    
     animate();
+
+    function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+    async function AjoutCube(){
+      var box= new Boite(5,5,5);
+      superCube.AddBox(box);
+      superCube.AddAllToScene(scene);
+      animate();
+    }
+
+    async function DimensionAleat(maxX, maxY, maxZ){
+      var rand= Math.random();
+      var hauteur= rand*maxY;
+      await sleep(3000);
+      var profondeur= rand*maxZ;
+      await sleep(3000);
+      var largeur= rand*maxX;
+
+      return {x:largeur,y:profondeur,z:hauteur};
+
+      
+
+    }
+
+    function CreationEnsemble(X,Y,Z,nb){
+      for(let count=0; count<nb; count++){
+        var box= new Boite(X,Y,Z);
+        mesBoitesDeMerde.push(box);
+      }
+    }
+
+    async function OnEnvoiLeGrosTasDeMerde(){
+      console.log("appel merde");
+      mesBoitesDeMerde.sort((a,b)=>{
+       return a.geometry.parameters.width*a.geometry.parameters.height*a.geometry.parameters.depth - b.geometry.parameters.width*b.geometry.parameters.height*b.geometry.parameters.depth;
+      });
+      for (let count=0;count<mesBoitesDeMerde.length;count++){
+        superCube.AddBox(mesBoitesDeMerde[count]);
+        superCube.AddAllToScene(scene);
+        animate();
+        await sleep(3000);
+      }
+    }
+
+    function BoutonCréer(){
+      console.log("appel Bouton");
+      let X= parseInt(document.getElementById('X').value);
+      let Y= parseInt(document.getElementById('Y').value);
+      let Z= parseInt(document.getElementById('Z').value);
+      let nb =parseInt(document.getElementById('nombre').value);
+      CreationEnsemble(X,Y,Z,nb);
+      alert(`ensemble de ${nb} éléments créées de dimension {${X},${Y},${Z}}`);
+    }
+
+
+
+
 
     /*document.addEventListener("keydown", (e) => {
       switch (e.code) {
